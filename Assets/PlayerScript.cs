@@ -4,16 +4,32 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public string up, down;
+    [SerializeField]
+    private string up, down;
 
     public Rigidbody2D rigidBody;
 
-    Vector2 velocity = Vector2.zero;
+    protected Vector2 velocity = Vector2.zero;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Start of player called");
+    }
+
+    protected void MoveUp()
+    {
+        velocity = new Vector2(0, 5);
+    }
+
+    protected void MoveDown()
+    {
+        velocity = new Vector2(0, -5);
+    }
+
+    protected void StayStationary()
+    {
+        velocity = new Vector2(0, 0);
     }
 
     // Update is called once per frame
@@ -24,20 +40,20 @@ public class PlayerScript : MonoBehaviour
             //move the player up
             //rigidBody.velocity = moving upwards
             Debug.Log("up key pressed");
-            velocity = new Vector2(0, 5);
+            MoveUp();
         }
         else if (Input.GetKey(down))
         {
             //move the player down
             //rigidBody.velocity = moving downwards
             Debug.Log("down key pressed");
-            velocity = new Vector2(0, -5);
+            MoveDown();
         }
         else
         {
             //don't move the player
             //rigidBody.velocity = zero (don't move)
-            velocity = new Vector2(0, 0);
+            StayStationary();
         }
 
         rigidBody.velocity = velocity;
